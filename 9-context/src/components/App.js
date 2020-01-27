@@ -1,15 +1,10 @@
 import React from 'react'
 import UserCreate from './UserCreate'
-import LanguageContext from '../contexts/LanguageContext'
+import { LanguageStore } from '../contexts/LanguageContext'
 import ColorContext from '../contexts/ColorContext'
+import LanguageSelector from './LanguageSelector'
 
 class App extends React.Component {
-    state = { language: 'english' }
-
-    onLanguageChange = (lang) => {
-        this.setState({ language: lang })
-    }
-
     // example of context
     // use default value (in context files) or provider with static value
     // if you only want read only
@@ -21,17 +16,12 @@ class App extends React.Component {
     render() {
         return (
             <div className="ui container">
-                <div>
-                    Select a language:
-                    <i className="flag us" onClick={() => this.onLanguageChange('english')} />
-                    <i className="flag nl" onClick={() => this.onLanguageChange('dutch')} />
-                </div>
-            
-                <ColorContext.Provider value="primary">
-                    <LanguageContext.Provider value={this.state.language}>
-                        <UserCreate />
-                    </LanguageContext.Provider>
-                </ColorContext.Provider>
+                <LanguageStore>
+                    <LanguageSelector />
+                    <ColorContext.Provider value="primary">
+                            <UserCreate />
+                    </ColorContext.Provider>
+                </LanguageStore>
             </div>
         )
     }
