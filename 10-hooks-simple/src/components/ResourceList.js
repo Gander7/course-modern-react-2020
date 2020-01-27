@@ -11,12 +11,16 @@ const ResourceList = (props) => {
 
     useEffect(() => {
         fetchResource(props.resource)
-    }, props.resource)
+    }, [props.resource])
 
     return (
-        <div>
-            {resources.length}
-        </div>
+        <ul>
+            {resources.map((r) => {
+                return (
+                    <li key={r.id}>{r.title}</li>
+                )
+            })}
+        </ul>
     )
 }
 
