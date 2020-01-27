@@ -4,13 +4,11 @@ import axios from 'axios'
 const ResourceList = (props) => {
     const [resources, setResources] = useState([])
 
-    const fetchResource = async (resource) => {
-        const res = await axios.get(`https://jsonplaceholder.typicode.com/${resource}`)
-        setResources(res.data)
-    }
-
     useEffect(() => {
-        fetchResource(props.resource)
+        (async resource => {
+            const res = await axios.get(`https://jsonplaceholder.typicode.com/${resource}`)
+            setResources(res.data)
+        })(props.resource)
     }, [props.resource])
 
     return (
